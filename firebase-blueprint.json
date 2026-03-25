@@ -1,0 +1,44 @@
+{
+  "entities": {
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Represents a patient's appointment booking.",
+      "type": "object",
+      "properties": {
+        "patientName": { "type": "string", "description": "Full name of the patient" },
+        "patientEmail": { "type": "string", "format": "email", "description": "Email address of the patient" },
+        "patientPhone": { "type": "string", "description": "Phone number of the patient" },
+        "date": { "type": "string", "description": "Date of the appointment (YYYY-MM-DD)" },
+        "time": { "type": "string", "description": "Time of the appointment (HH:MM)" },
+        "service": { "type": "string", "description": "Type of service requested" },
+        "message": { "type": "string", "description": "Optional message from the patient" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled"], "description": "Status of the appointment" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the appointment was created" }
+      },
+      "required": ["patientName", "patientEmail", "patientPhone", "date", "time", "service", "status", "createdAt"]
+    },
+    "ContactMessage": {
+      "title": "ContactMessage",
+      "description": "Represents a message sent via the contact form.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the sender" },
+        "email": { "type": "string", "format": "email", "description": "Email of the sender" },
+        "subject": { "type": "string", "description": "Subject of the message" },
+        "message": { "type": "string", "description": "The message content" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the message was sent" }
+      },
+      "required": ["name", "email", "subject", "message", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/appointments/{appointmentId}": {
+      "schema": "Appointment",
+      "description": "Collection of patient appointments"
+    },
+    "/contactMessages/{messageId}": {
+      "schema": "ContactMessage",
+      "description": "Collection of contact form messages"
+    }
+  }
+}
